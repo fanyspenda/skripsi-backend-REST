@@ -1,0 +1,13 @@
+import { Schema, model } from "mongoose";
+
+const alumniSchema = new Schema({
+  name: String,
+  entry_year: Number,
+  graduate_year: Number,
+  major: String,
+  work_at: String,
+  work_position: String,
+  email: String
+});
+
+export default model("alumni_input", alumniSchema);
