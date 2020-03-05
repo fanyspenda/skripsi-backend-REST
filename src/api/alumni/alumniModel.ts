@@ -7,7 +7,8 @@ const alumniSchema = new Schema({
   major: String,
   work_at: String,
   work_position: String,
-  email: String
+  email: String,
+  data_source: String
 });
 
 export default model("alumni_input", alumniSchema);

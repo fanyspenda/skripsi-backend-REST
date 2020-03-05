@@ -1,10 +1,18 @@
 import ModelAlumni from "./alumniModel";
-import { ObjectID } from "bson";
 import { Request, Response } from "express";
 
 const AlumniController = {
   index: (req: Request, res: Response) => {
-    ModelAlumni.find().then(alumnis => {
+    ModelAlumni.find(
+      {},
+      {
+        name: true,
+        work_at: true,
+        work_position: true,
+        email: true,
+        data_source: true
+      }
+    ).then(alumnis => {
       res.send(alumnis);
     });
   },
@@ -14,7 +22,7 @@ const AlumniController = {
     });
   },
   store: (req: Request, res: Response) => {
-    ModelAlumni.create(req.body).then(alumni => {
+    ModelAlumni.create({ ...req.body, data_source: "manual" }).then(alumni => {
       res.send(alumni);
     });
   }
