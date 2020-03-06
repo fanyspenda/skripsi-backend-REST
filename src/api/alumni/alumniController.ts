@@ -25,6 +25,15 @@ const AlumniController = {
     ModelAlumni.create({ ...req.body, data_source: "manual" }).then(alumni => {
       res.send(alumni);
     });
+  },
+  update: (req: Request, res: Response) => {
+    ModelAlumni.updateOne({ _id: req.params.id }, { ...req.body })
+      .then(writeResult => {
+        res.send(writeResult);
+      })
+      .catch(err => {
+        res.send(err);
+      });
   }
 };
 
