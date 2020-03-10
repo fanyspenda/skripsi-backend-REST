@@ -1,8 +1,8 @@
 import Express from "express";
 import cors from "cors";
-import router from "./config/router";
+import router from "config/router";
 import morgan from "morgan";
-import "./config/db";
+import "config/db";
 const app = Express();
 
 app.use(Express.json());

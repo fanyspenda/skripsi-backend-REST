@@ -1,10 +1,10 @@
 import { Router } from "express";
 import ControllerAlumni from "./alumniController";
-const AlumniRouter = Router();
+const alumniRouter = Router();
 
-AlumniRouter.get("/", ControllerAlumni.index);
-AlumniRouter.get("/:id", ControllerAlumni.show);
-AlumniRouter.post("/", ControllerAlumni.store);
-AlumniRouter.put("/:id", ControllerAlumni.update);
+alumniRouter.get("/", ControllerAlumni.index);
+alumniRouter.get("/:id", ControllerAlumni.show);
+alumniRouter.post("/", ControllerAlumni.store);
+alumniRouter.put("/:id", ControllerAlumni.update);
 
-export default AlumniRouter;
+export default alumniRouter;
