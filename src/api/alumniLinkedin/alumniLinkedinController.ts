@@ -13,13 +13,11 @@ const AlumniController = {
 						work_at: true,
 						work_position: true,
 						email: true,
-						data_source: true
+						data_source: true,
 					}
 				)
 				.limit(req.query.limit * 1)
-				.skip(
-					1 * req.query.limit * req.query.page - 1 * req.query.limit
-				);
+				.skip(req.skip);
 			const countAlumnis = await modelAlumniLinkedin.count({});
 			const pageCount = Math.ceil(countAlumnis / (req.query.limit * 1));
 			res.send({
@@ -32,20 +30,20 @@ const AlumniController = {
 					pageCount,
 					req.query.page * 1
 				),
-				data: documentAlumnis
+				data: documentAlumnis,
 			});
 		} catch (error) {
 			console.log(error);
 		}
 	},
 	show: (req: Request, res: Response) => {
-		modelAlumniLinkedin.findById(req.params.id).then(alumni => {
+		modelAlumniLinkedin.findById(req.params.id).then((alumni) => {
 			res.send(alumni);
 		});
 	},
 	store: (req: Request, res: Response) => {
 		//do scraping here
-	}
+	},
 };
 
 export default AlumniController;
