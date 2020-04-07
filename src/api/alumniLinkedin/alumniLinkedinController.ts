@@ -18,7 +18,7 @@ const AlumniController = {
 				)
 				.limit(req.query.limit * 1)
 				.skip(req.skip);
-			const countAlumnis = await modelAlumniLinkedin.count({});
+			const countAlumnis = await modelAlumniLinkedin.countDocuments({});
 			const pageCount = Math.ceil(countAlumnis / (req.query.limit * 1));
 			res.send({
 				object: "list",

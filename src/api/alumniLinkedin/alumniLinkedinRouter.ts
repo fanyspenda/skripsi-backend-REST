@@ -5,7 +5,7 @@ import paginate from "express-paginate";
 
 LinkedinRouter.get(
 	"/",
-	paginate.middleware(20, 50),
+	paginate.middleware(40, 60),
 	ControllerLinkedinAlumni.index
 );
 LinkedinRouter.get("/:id", ControllerLinkedinAlumni.show);
