@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import paginate from "express-paginate";
 
 const AlumniController = {
-	index: async (req: Request, res: Response) => {
+	showAll: async (req: Request, res: Response) => {
 		try {
 			const documentAlumnis = await ModelAlumni.find(
 				{},
@@ -36,19 +36,21 @@ const AlumniController = {
 			console.log(error);
 		}
 	},
-	show: (req: Request, res: Response) => {
+	showOne: (req: Request, res: Response) => {
 		ModelAlumni.findById(req.params.id).then((alumni) => {
 			res.send(alumni);
 		});
 	},
-	store: (req: Request, res: Response) => {
-		ModelAlumni.create({ ...req.body, data_source: "manual" }).then(
-			(alumni) => {
+	addOne: (req: Request, res: Response) => {
+		ModelAlumni.create({ ...req.body, data_source: "manual" })
+			.then((alumni) => {
 				res.send(alumni);
-			}
-		);
+			})
+			.catch((err) => {
+				res.send(err);
+			});
 	},
-	update: (req: Request, res: Response) => {
+	updateOne: (req: Request, res: Response) => {
 		ModelAlumni.updateOne({ _id: req.params.id }, { ...req.body })
 			.then((writeResult) => {
 				res.send(writeResult);
@@ -56,6 +58,9 @@ const AlumniController = {
 			.catch((err) => {
 				res.send(err);
 			});
+	},
+	deleteOne: (req: Request, res: Response) => {
+		ModelAlumni.deleteOne({ _id: req.params.id });
 	},
 };
 
