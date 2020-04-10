@@ -39,16 +39,16 @@ const userController = {
 							expiresIn: 86400,
 						}
 					);
-					res.status(200).send({ valid: true, token });
+					res.status(200).send({ token });
+					res.end();
 				} else {
-					res.status(401).send({
-						valid: false,
-						message: "password doesnt match",
-					});
+					res.status(401).jsonp({ error: "password Salah" });
+					res.end();
 				}
 			})
 			.catch((err) => {
-				res.send("user not found");
+				res.status(401).json({ error: "user not found" });
+				res.end();
 			});
 	},
 };

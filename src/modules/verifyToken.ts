@@ -6,7 +6,8 @@ interface authReq extends Request {
 }
 
 const verifyToken = (req: authReq, res: Response, next: NextFunction) => {
-	let token = req.headers["x-access-token"] as string;
+	const bearerHeader = req.headers["authorization"];
+	const token = bearerHeader ? bearerHeader.split(" ")[1] : undefined;
 	if (!token)
 		return res
 			.status(403)
