@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import userModel from "./userModel";
 import { Request, Response } from "express";
-import paginate from "express-paginate";
 import bcrypt from "bcryptjs";
 interface authReq extends Request {
 	usrId: string;
@@ -33,7 +32,7 @@ const userController = {
 			.then((doc: any) => {
 				if (bcrypt.compareSync(req.body.password, doc.password)) {
 					let token = jwt.sign(
-						{ id: doc._id, level: doc.level },
+						{ name: doc.name, level: doc.level },
 						"secret",
 						{
 							expiresIn: 86400,
@@ -42,12 +41,12 @@ const userController = {
 					res.status(200).send({ token });
 					res.end();
 				} else {
-					res.status(401).jsonp({ error: "password Salah" });
+					res.status(401).send({ error: "password Salah" });
 					res.end();
 				}
 			})
 			.catch((err) => {
-				res.status(401).json({ error: "user not found" });
+				res.status(401).send({ error: "user not found" });
 				res.end();
 			});
 	},

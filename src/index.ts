@@ -15,5 +15,5 @@ app.get("/", (req, res) => {
 });
 const port = 4000;
 app.listen(port, () => {
-	console.log("server berjalan");
+	console.log(`server berjalan di port: ${port}`);
 });

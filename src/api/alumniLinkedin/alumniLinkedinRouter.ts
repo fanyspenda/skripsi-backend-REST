@@ -2,14 +2,13 @@ import { Router } from "express";
 import ControllerLinkedinAlumni from "./alumniLinkedinController";
 const LinkedinRouter = Router();
 import paginate from "express-paginate";
+import verifyToken from "modules/verifyToken";
 
 LinkedinRouter.get(
 	"/",
 	paginate.middleware(40, 60),
-	ControllerLinkedinAlumni.index
+	ControllerLinkedinAlumni.showAll
 );
-LinkedinRouter.get("/:id", ControllerLinkedinAlumni.show);
-// LinkedinRouter.post("/", ControllerLinkedinAlumni.store);
-// AlumniRouter.delete("/", ControllerFacebookAlumni.clear);
+LinkedinRouter.get("/:id", ControllerLinkedinAlumni.showOne);
 
 export default LinkedinRouter;

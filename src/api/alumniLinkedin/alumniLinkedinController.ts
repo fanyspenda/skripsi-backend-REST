@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import paginate from "express-paginate";
 
 const AlumniController = {
-	index: async (req: Request, res: Response) => {
+	showAll: async (req: Request, res: Response) => {
 		try {
 			const documentAlumnis = await modelAlumniLinkedin
 				.find(
@@ -33,16 +33,22 @@ const AlumniController = {
 				data: documentAlumnis,
 			});
 		} catch (error) {
+			res.status(401).send({ error });
 			console.log(error);
 		}
 	},
-	show: (req: Request, res: Response) => {
-		modelAlumniLinkedin.findById(req.params.id).then((alumni) => {
-			res.send(alumni);
-		});
-	},
-	store: (req: Request, res: Response) => {
-		//do scraping here
+	showOne: async (req: Request, res: Response) => {
+		try {
+			const result = await modelAlumniLinkedin
+				.findById(req.params.id)
+				.then((alumni) => {
+					res.send(alumni);
+				});
+			res.status(200).send(result);
+		} catch (error) {
+			res.status(401).send(error);
+			console.log(error);
+		}
 	},
 };
 

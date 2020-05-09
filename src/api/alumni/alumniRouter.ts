@@ -8,5 +8,6 @@ alumniRouter.get("/", paginate.middleware(40, 60), ControllerAlumni.showAll);
 alumniRouter.get("/:id", ControllerAlumni.showOne);
 alumniRouter.post("/", ControllerAlumni.addOne);
 alumniRouter.put("/:id", ControllerAlumni.updateOne);
+alumniRouter.delete("/:id", ControllerAlumni.deleteOne);
 
 export default alumniRouter;
