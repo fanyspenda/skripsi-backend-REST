@@ -5,9 +5,15 @@ import paginate from "express-paginate";
 const AlumniController = {
 	showAll: async (req: Request, res: Response) => {
 		try {
+			const searchedname = req.body.name || "";
 			const documentAlumnis = await modelAlumniLinkedin
 				.find(
-					{},
+					{
+						name: {
+							$regex: searchedname,
+							$options: "i",
+						},
+					},
 					{
 						name: true,
 						work_at: true,
@@ -18,8 +24,15 @@ const AlumniController = {
 				)
 				.limit(req.query.limit * 1)
 				.skip(req.skip);
-			const countAlumnis = await modelAlumniLinkedin.countDocuments({});
-			const pageCount = Math.ceil(countAlumnis / (req.query.limit * 1));
+			const countAlumnis = await modelAlumniLinkedin.countDocuments({
+				name: {
+					$regex: searchedname,
+					$options: "i",
+				},
+			});
+			let pageCount = Math.ceil(countAlumnis / (req.query.limit * 1));
+			if (pageCount <= 0) pageCount = 1;
+
 			res.send({
 				object: "list",
 				has_more: paginate.hasNextPages(req)(pageCount),

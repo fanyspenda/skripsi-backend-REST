@@ -4,9 +4,15 @@ import paginate from "express-paginate";
 
 const AlumniController = {
 	showAll: async (req: Request, res: Response) => {
+		const searchedname = req.body.name || "";
 		try {
 			const documentAlumnis = await ModelAlumni.find(
-				{},
+				{
+					name: {
+						$regex: searchedname,
+						$options: "i",
+					},
+				},
 				{
 					name: true,
 					work_at: true,
@@ -18,8 +24,14 @@ const AlumniController = {
 				.limit(req.query.limit * 1)
 				.skip(req.skip);
 
-			const countAlumnis = await ModelAlumni.countDocuments({});
-			const pageCount = Math.ceil(countAlumnis / (req.query.limit * 1));
+			const countAlumnis = await ModelAlumni.countDocuments({
+				name: {
+					$regex: searchedname,
+					$options: "i",
+				},
+			});
+			let pageCount = Math.ceil(countAlumnis / (req.query.limit * 1));
+			if (pageCount <= 0) pageCount = 1;
 			res.send({
 				object: "list",
 				has_more: paginate.hasNextPages(req)(pageCount),
@@ -62,6 +74,7 @@ const AlumniController = {
 	deleteOne: (req: Request, res: Response) => {
 		ModelAlumni.deleteOne({ _id: req.params.id });
 	},
+	getWorking: (req: Request, res: Response) => {},
 };
 
 export default AlumniController;
