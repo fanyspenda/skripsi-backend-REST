@@ -9,7 +9,8 @@ export const counterController = {
 				alumniModel.count({ work_at: { $in: ["", null] } }),
 				alumniLinkedinModel.count({ work_at: { $in: ["", null] } }),
 			]);
-			res.status(200).send({ alumni: total, alumniLinkedin: totalL });
+			const countTotal = total + totalL;
+			res.status(200).send({ total: countTotal });
 		} catch (error) {
 			res.status(500).send(error);
 		}
@@ -20,7 +21,8 @@ export const counterController = {
 				alumniModel.count({ work_at: { $nin: ["", null] } }),
 				alumniLinkedinModel.count({ work_at: { $nin: ["", null] } }),
 			]);
-			res.status(200).send({ alumni: total, alumniLinkedin: totalL });
+			const countTotal = total + totalL;
+			res.status(200).send({ total: countTotal });
 		} catch (error) {
 			res.status(500).send(error);
 		}
