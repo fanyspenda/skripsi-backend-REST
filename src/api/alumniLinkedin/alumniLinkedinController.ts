@@ -5,7 +5,7 @@ import paginate from "express-paginate";
 const AlumniController = {
 	showAll: async (req: Request, res: Response) => {
 		try {
-			const searchedname = req.body.name || "";
+			const searchedname = req.query.name || "";
 			const documentAlumnis = await modelAlumniLinkedin
 				.find(
 					{

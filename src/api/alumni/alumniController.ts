@@ -4,7 +4,7 @@ import paginate from "express-paginate";
 
 const AlumniController = {
 	showAll: async (req: Request, res: Response) => {
-		const searchedname = req.body.name || "";
+		const searchedname = req.query.name || "";
 		try {
 			const documentAlumnis = await ModelAlumni.find(
 				{
