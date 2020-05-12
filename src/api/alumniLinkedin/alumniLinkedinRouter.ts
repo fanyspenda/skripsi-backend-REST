@@ -2,7 +2,6 @@ import { Router } from "express";
 import ControllerLinkedinAlumni from "./alumniLinkedinController";
 const LinkedinRouter = Router();
 import paginate from "express-paginate";
-import verifyToken from "modules/verifyToken";
 
 LinkedinRouter.get(
 	"/",

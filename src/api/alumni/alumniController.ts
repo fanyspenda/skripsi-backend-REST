@@ -74,7 +74,6 @@ const AlumniController = {
 	deleteOne: (req: Request, res: Response) => {
 		ModelAlumni.deleteOne({ _id: req.params.id });
 	},
-	getWorking: (req: Request, res: Response) => {},
 };
 
 export default AlumniController;
