@@ -98,18 +98,15 @@ const userController = {
 	},
 	updateOne: async (req: Request, res: Response) => {
 		try {
-			const { name, email, level } = req.body;
-			if (!name || !email || !level)
-				return res.send("data not fullfiled");
-			const result = await userModel.findByIdAndUpdate(
-				req.params.id,
-				{
-					name: req.body.name,
-					email: req.body.email,
-					level: req.body.level,
-				},
-				{ new: true, fields: { name: true, email: true } }
-			);
+			const { name, email, level } = await req.body;
+			if (!name || !email || isNaN(level)) {
+				return res.status(404).send("data not fullfiled");
+			}
+			const result = await userModel.findByIdAndUpdate(req.params.id, {
+				name: name,
+				email: email,
+				level: level,
+			});
 			return res.send(result);
 		} catch (error) {
 			return res.send(`error: ${error}`);
