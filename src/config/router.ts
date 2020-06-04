@@ -12,6 +12,6 @@ router.use("/alumni", verifyToken, AlumniRouter);
 router.use("/alumniLinkedin", verifyToken, alumniLinkedinRouter);
 router.use("/user", userRouter);
 router.use("/major", verifyToken, majorRouter);
-router.use("/counter", verifyToken, counterRouter);
+router.use("/counter", counterRouter);
 
 export default router;
