@@ -33,8 +33,6 @@ const AlumniController = {
 			let pageCount = Math.ceil(countAlumnis / (req.query.limit * 1));
 			if (pageCount <= 0) pageCount = 1;
 			res.send({
-				object: "list",
-				has_more: paginate.hasNextPages(req)(pageCount),
 				pageCount,
 				countAlumnis,
 				pages: paginate.getArrayPages(req)(
