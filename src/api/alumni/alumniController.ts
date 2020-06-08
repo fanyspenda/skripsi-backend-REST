@@ -6,30 +6,17 @@ const AlumniController = {
 	showAll: async (req: Request, res: Response) => {
 		const searchedname = req.query.name || "";
 		try {
-			const documentAlumnis = await ModelAlumni.find(
-				{
-					name: {
-						$regex: searchedname,
-						$options: "i",
-					},
-				},
-				{
-					name: true,
-					work_at: true,
-					work_position: true,
-					email: true,
-					data_source: true,
-				}
-			)
-				.limit(req.query.limit * 1)
-				.skip(req.skip);
+			const [documentAlumnis, countAlumnis] = await Promise.all([
+				ModelAlumni.find({
+					name: { $regex: searchedname, $options: "i" },
+				})
+					.limit(req.query.limit * 1)
+					.skip(req.skip),
+				ModelAlumni.countDocuments({
+					name: { $regex: searchedname, $options: "i" },
+				}),
+			]);
 
-			const countAlumnis = await ModelAlumni.countDocuments({
-				name: {
-					$regex: searchedname,
-					$options: "i",
-				},
-			});
 			let pageCount = Math.ceil(countAlumnis / (req.query.limit * 1));
 			if (pageCount <= 0) pageCount = 1;
 			res.send({
