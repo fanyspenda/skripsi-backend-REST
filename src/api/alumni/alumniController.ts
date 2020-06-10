@@ -57,7 +57,11 @@ const AlumniController = {
 			});
 	},
 	deleteOne: (req: Request, res: Response) => {
-		ModelAlumni.deleteOne({ _id: req.params.id });
+		ModelAlumni.deleteOne({ _id: req.params.id })
+			.then(() => {
+				res.status(200).send("success");
+			})
+			.catch((err) => res.send(err));
 	},
 };
 
